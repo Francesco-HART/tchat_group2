@@ -25,14 +25,12 @@
         </md-card>
       </b-col>
     </b-row>
+
   </b-container>
 </template>
 
 <script>
 
-/* socket.on('is_auth', (data) => {
-    app.pseudo = data.pseudo;
-  }) */
 export default {
   name: 'Auth',
   data: () => ({
@@ -42,7 +40,6 @@ export default {
 
   methods: {
     onLogin: function () {
-      this.$socket.emit('is_auth', { pseudo: this.login, password: this.password })
     }
   }
 }

@@ -11,7 +11,6 @@ exports.getUserSentMessages = async function(req, res, next) {
   }
 
   const messages = await db.collection("private_messages").find({sender_id : ObjectId(user_id)}).toArray();
-
   return res.status(200).json(messages);
 }
 
@@ -25,7 +24,6 @@ exports.getUserReceivedMessages = async function(req, res, next) {
   }
 
   const messages = await db.collection("private_messages").find({receiver_id : ObjectId(user_id)}).toArray();
-
   return res.status(200).json(messages);
 }
 
