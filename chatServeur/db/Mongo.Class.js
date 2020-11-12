@@ -65,6 +65,7 @@ class MongoClass{
     }
     //endregion
 
+    //region  private msg
     async getCollectionPrivateMessage(){
         const db = await this.getDb();
         return db.collection("private_messages");
@@ -87,6 +88,7 @@ class MongoClass{
         const collection = await this.getCollectionPrivateMessage();
         const messages = await collection.insertOne(params);
     }
+    //endregion
 
     async findMessageByUserName(data) {
         const collection = await this.getCollectionMessage();
@@ -100,9 +102,22 @@ class MongoClass{
     }
 
 
+
     async getCollectionPublicMessage(){
         const db = await this.getDb();
         return db.collection("public_messages");
+    }
+
+    async getPublicMessages(room_id){
+        const collection = await this.getCollectionPublicMessage();
+        const messages = await collection.find({ room_id: ObjectId(room_id) }).toArray();
+        return messages;
+    }
+
+    async insertNewPulicMessage(params){
+        const collection = await this.getCollectionPublicMessage();
+        const messages = await collection.insertOne(params);
+        return messages;
     }
 
     

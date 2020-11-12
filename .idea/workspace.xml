@@ -21,12 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d562c848-8435-4943-a249-1ba16c6dba1b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/views/Auth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/views/Auth.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatServeur/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/controllers/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatServeur/controllers/private_messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/controllers/private_messages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatServeur/db/demo_mongo.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/demo_mongo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatServeur/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/routes/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatServeur/controllers/public_messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/controllers/public_messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatServeur/db/Mongo.Class.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/Mongo.Class.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
