@@ -25,5 +25,7 @@
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.13",
     "socket.io": "^3.0.1"
+    "password-hash": "^1.2.2",
+    "socket.io": "^3.0.0"
   }
 }
