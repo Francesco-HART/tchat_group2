@@ -1,6 +1,5 @@
 const db = require("../db/mongo");
-const socket = require("../sevices/socket");
-
+const io = require("../services/socket");
 exports.createRoom = async function (req, res, next) {
   const { creator_id, room_name } = req.body;
 
@@ -40,6 +39,7 @@ exports.getRoomWithMessages = async function (req, res, next) {
     const messages = await db.publicMessage.getPublicMessages(room._id);
     room["message"] = messages;
 
+
     const roomFinal = room.message.map( async (message) => {
       const user = await db.users.findUserById(message.sender_id);
       message["pseudo"] = user.pseudo;
@@ -53,6 +53,7 @@ exports.getRoomWithMessages = async function (req, res, next) {
     Promise.all(roomFinal).then(function (results) {
       return res.status(200).json(results);
     });
+
 
   } catch (e) {
     console.log(e);

@@ -2,6 +2,7 @@
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
+const Cookies = require("cookies");
 const app = express();
 const server = http.createServer(app);
 const bodyParser = require("body-parser");
@@ -13,22 +14,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const createHandlers = require("./src/PacketHandlers");
 
 app.use(cors());
-
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
     // allowedHeaders: ["my-custom-header"],
     credentials: true,
   },
 });
 const router = require("./router");
-const pseudos = [];
-const clients = {
-  "client.id": "pseudo",
-};
 
-let connected = 0;
+// services
+require("./services/auth");
+app.use(Cookies.express({ keys: ["vjeqckHAvFOzxrKr6nJQI9Myl2yAOfTp"] }));
 
 io.on("connection", function (socket_client) {
   console.log("Client connected", socket_client.id);
@@ -45,3 +42,4 @@ const PORT = 5000;
 server.listen(PORT, () => {
   console.log("started" + PORT);
 });
+io.listen(server);
