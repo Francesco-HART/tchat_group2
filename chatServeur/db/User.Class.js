@@ -64,9 +64,20 @@ class UserClass {
   }
 
   async isUserAuth(data) {
-    const dbData = this.findUserByPseudo(data.pseudo);
-    const hashedPassword = dbData.password;
-    return passwordHash.verify(data.password, hashedPassword);
+    let dbData = null;
+    let hashedPassword = null;
+    try {
+      dbData = await this.findUserByPseudo(data.pseudo);
+      hashedPassword = dbData.password;
+    } catch (e) {
+      return {error: 'Pseudo incorrect'}
+    }
+
+    if (passwordHash.verify(data.password, hashedPassword)) {
+      return dbData;
+    } else {
+      return {error: 'erreur serveur'};
+    }
   }
   //endregion
 }

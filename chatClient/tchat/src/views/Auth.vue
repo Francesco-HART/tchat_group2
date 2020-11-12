@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { url } from '@/const'
 
 export default {
   name: 'Auth',
@@ -40,6 +42,11 @@ export default {
 
   methods: {
     onLogin: function () {
+      axios.get(url + 'login?pseudo=' + this.login + '&password=' + this.password)
+        .then((response) => {
+          console.log(response)
+          this.$store.commit('setUser', response)
+        })
     }
   }
 }

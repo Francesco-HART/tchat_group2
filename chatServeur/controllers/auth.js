@@ -4,6 +4,7 @@ const db = require("../db/mongo");
 
 exports.loginUser = async (req, res, next) => {
   const { pseudo, password } = req.query;
+  console.log(password);
   if (
     password === null ||
     password === undefined ||
@@ -11,13 +12,12 @@ exports.loginUser = async (req, res, next) => {
     password === undefined
   )
     return res.status(404).json({ error: "Champs manquant" });
-  const isFind = await db.users.isUserAuth({
-    pseudo: "new user",
-    password: "password",
+  const dataUser = await db.users.isUserAuth({
+    pseudo, password
   });
-  if (isFind) {
-    return res.status(200).json({ pseudo: data.pseudo });
+  if (dataUser && !dataUser.error) {
+    return res.status(200).json(dataUser);
   } else {
-    return res.status(404).json({ error: "Champs manquant" });
+    return res.status(404).json(dataUser.error);
   }
 };
