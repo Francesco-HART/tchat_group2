@@ -35,8 +35,8 @@ class MongoClass{
         const dbData = this.findUserByName(data)
         if (dbData===null || dbData===undefined){
             const hashedPassword = passwordHash.generate(data.password);
-            const db = await this.getDb();
-            await db.collection("users").insertOne( { "pseudo" : data.pseudo, "password": hashedPassword } )
+            const collection = await this.getCollectionUser();
+            await collection.insertOne( { "pseudo" : data.pseudo, "password": hashedPassword } )
             return true;
         }
         else{
