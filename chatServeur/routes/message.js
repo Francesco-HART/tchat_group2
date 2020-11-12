@@ -1,7 +1,10 @@
 //const { requireAuth, requireAdmin } = require("../middlewares");
-const Message = require("../controllers/message");
+const Message = require("../controllers/private_messages");
 
 module.exports = (app) => {
   //app.get("/api/message", Auth.signIn);
-  //app.put("/api/message", Massage.sendMessage);
+  app.post("/api/message", Message.createMessage);
+  app.get("/api/getusersentmessages", Message.getUserSentMessages);
+  app.get("/api/getuserreceivedmessages", Message.getUserReceivedMessages);
+
 };
