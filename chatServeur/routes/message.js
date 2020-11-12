@@ -6,6 +6,6 @@ module.exports = (app) => {
   app.post("/api/message/private", MessagePrivate.createMessage);
   app.get("/api/message/user/sent", MessagePrivate.getUserSentMessages);
   app.get("/api/message/user/receive", MessagePrivate.getUserReceivedMessages);
-  app.post("/api/message/public", MessagePublic.createRoomMessage);
-  app.get("/api/message/public", MessagePublic.getRoomsMessages);
+  app.post("/api/message/public", MessagePublic.sendPublicMessage);
+  app.get("/api/message/public", MessagePublic.getPublicMessage);
 };

@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const createHandlers = require("./src/PacketHandlers");
 
+app.use(cors());
+
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
@@ -39,7 +41,7 @@ io.on("connection", function (socket_client) {
 });
 
 router(app);
-
-server.listen(5055, () => {
-  console.log("started");
+const PORT = 5000;
+server.listen(PORT, () => {
+  console.log("started" + PORT);
 });

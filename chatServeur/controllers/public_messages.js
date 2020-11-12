@@ -1,16 +1,17 @@
-const db = require('../db/mongo')
+const db = require("../db/mongo");
+const socket = require("../sevices/socket");
 
-exports.getRoomsMessages = async function (req, res, next) {
+exports.getPublicMessage = async function (req, res, next) {
   const { room_id } = req.query;
   if (!room_id) {
     return res.status(404).send({ error: "Aucun ID" });
   }
 
-  const messages = await db.users.getPublicMessages(room_id);
+  const messages = await db.publicMessage.getPublicMessages(room_id);
   return res.status(200).json(messages);
 };
 
-exports.createRoomMessage = async function (req, res, next) {
+exports.sendPublicMessage = async function (req, res, next) {
   const { sender_id, room_id, message } = req.body;
 
   if (
@@ -30,6 +31,7 @@ exports.createRoomMessage = async function (req, res, next) {
     message,
   };
 
-  const messages = await db.users.insertNewPulicMessage(params);
-  return res.status(200).send(messages);
+  const new_message = await db.publicMessage.insertNewPulicMessage(params);
+  socket.to(room_id).emit(room_id, new_message);
+  return res.status(200).send(new_message);
 };
