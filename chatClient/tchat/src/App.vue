@@ -21,26 +21,42 @@
 
         <md-list>
 
-          <router-link :to="{name:'AddServer'}">
+          <router-link :to="{name:'privateMessages'}">
             <md-list-item>
-              <md-icon>wb_sunny</md-icon>
+              <md-icon>chat</md-icon>
+              <span class="md-list-item-text">Message Privée</span>
+            </md-list-item>
+          </router-link>
+
+          <router-link  :to="{name:'AddServer'}">
+            <md-list-item>
+              <md-icon>add</md-icon>
               <span class="md-list-item-text">Nouveau serveur</span>
             </md-list-item>
           </router-link>
 
           <router-link :to="{name:'Tchat', params: {id: this.general}}">
             <md-list-item>
-              <md-icon>wb_sunny</md-icon>
+              <md-icon>dns</md-icon>
               <span class="md-list-item-text">#Général</span>
             </md-list-item>
           </router-link>
 
           <router-link :to="{name:'Tchat', params: {id: this.annonce}}">
             <md-list-item>
-              <md-icon>wb_sunny</md-icon>
+              <md-icon>dns</md-icon>
               <span class="md-list-item-text">#Annonce</span>
             </md-list-item>
           </router-link>
+
+          <div v-for="(servers, index) in cServers" v-bind:key="index">
+            <router-link  :to="{name:'Tchat', params: {id: servers}}">
+              <md-list-item>
+                <md-icon>dns</md-icon>
+                <span class="md-list-item-text">#{{servers}}</span>
+              </md-list-item>
+            </router-link>
+          </div>
 
         </md-list>
       </md-app-drawer>
@@ -66,9 +82,9 @@ export default {
     }
   },
   computed: {
-    cCity: {
+    cServers: {
       get () {
-        return this.$store.state.city
+        return this.$store.state.servers
       }
     }
   }
