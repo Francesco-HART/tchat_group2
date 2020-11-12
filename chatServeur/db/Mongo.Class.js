@@ -1,6 +1,7 @@
 require('dotenv').config()
 const { MongoClient } = require('mongodb')
 const passwordHash = require('password-hash');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 //model du user = {pseudo: "", password:"", }
 //voir pour les message, msg (user: {msg:[id1, id2, id3]}
@@ -91,7 +92,7 @@ class MongoClass{
     //endregion
 
     async findMessageByUserName(data) {
-        const collection = await this.getCollectionMessage();
+        const collection = await this.getCollectionPrivateMessage();
         return await collection.find({pseudo: data.pseudo})
     }
 
@@ -101,8 +102,15 @@ class MongoClass{
         return db.collection("rooms");
     }
 
+    async createRoom(params){
+        const collection = this.getCollectionRooms();
+        await collection.insertOne(params);
+
+    }
 
 
+
+    //region public message
     async getCollectionPublicMessage(){
         const db = await this.getDb();
         return db.collection("public_messages");
@@ -119,7 +127,7 @@ class MongoClass{
         const messages = await collection.insertOne(params);
         return messages;
     }
-
+    //endregion public message
     
 }
 

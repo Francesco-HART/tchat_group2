@@ -1,5 +1,4 @@
-const client = require("../db/demo_mongo");
-const ObjectId = require("mongoose").Types.ObjectId;
+const db = require('../db/mongo')
 
 exports.getRoomsMessages = async function (req, res, next) {
   const { room_id } = req.query;

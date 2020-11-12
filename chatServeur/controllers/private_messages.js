@@ -1,5 +1,3 @@
-const client = require("../db/demo_mongo");
-const ObjectId = require('mongoose').Types.ObjectId;
 const db = require('../db/mongo')
 
 exports.getUserSentMessages = async function(req, res, next) {
@@ -34,7 +32,7 @@ exports.createMessage = async function(req, res, next) {
   }
 
   const params = {sender_id : sender_id, receiver_id : receiver_id, message : message};
-  const messages = await db.users.getAddPrivateMessage(params)
+  await db.users.getAddPrivateMessage(params)
   return res.status(200).send(params);
 }
 
