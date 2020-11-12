@@ -1,26 +1,16 @@
-const client = require("../db/demo_mongo");
-const ObjectId = require("mongoose").Types.ObjectId;
+const db = require('../db/mongo')
 
 exports.getRoomsMessages = async function (req, res, next) {
-  await client.connect();
-  const db = client.db("bnzzp8d394kena7");
   const { room_id } = req.query;
   if (!room_id) {
     return res.status(404).send({ error: "Aucun ID" });
   }
 
-  const messages = await db
-    .collection("public_messages")
-    .find({ room_id: ObjectId(room_id) })
-    .toArray();
-
+  const messages = await db.users.getPublicMessages(room_id);
   return res.status(200).json(messages);
 };
 
 exports.createRoomMessage = async function (req, res, next) {
-  await client.connect();
-  const db = client.db("bnzzp8d394kena7");
-
   const { sender_id, room_id, message } = req.body;
 
   if (
@@ -40,6 +30,6 @@ exports.createRoomMessage = async function (req, res, next) {
     message,
   };
 
-  const messages = await db.collection("public_messages").insertOne(params);
+  const messages = await db.users.insertNewPulicMessage(params);
   return res.status(200).send(messages);
 };
