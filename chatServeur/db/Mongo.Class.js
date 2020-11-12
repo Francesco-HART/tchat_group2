@@ -70,6 +70,24 @@ class MongoClass{
         return db.collection("private_messages");
     }
 
+    async getSenderUserPrivateMessage(user_id){
+        const collection = await this.getCollectionPrivateMessage();
+        const messages = await collection.find({sender_id : ObjectId(user_id)}).toArray();
+        return messages;
+
+    }
+
+    async getReceiverUserPrivateMessage(user_id){
+        const collection = await this.getCollectionPrivateMessage();
+        const messages = await collection.find({receiver_id : ObjectId(user_id)}).toArray();
+        return messages;
+    }
+
+    async getAddPrivateMessage(params){
+        const collection = await this.getCollectionPrivateMessage();
+        const messages = await collection.insertOne(params);
+    }
+
     async findMessageByUserName(data) {
         const collection = await this.getCollectionMessage();
         return await collection.find({pseudo: data.pseudo})
