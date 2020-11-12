@@ -40,6 +40,6 @@ exports.createRoomMessage = async function (req, res, next) {
     message,
   };
 
-  db.collection("public_messages").insertOne(params);
-  return res.status(200).send(params);
+  const messages = await db.collection("public_messages").insertOne(params);
+  return res.status(200).send(messages);
 };
