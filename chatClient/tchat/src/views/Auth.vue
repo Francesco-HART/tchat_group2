@@ -44,8 +44,8 @@ export default {
     onLogin: function () {
       axios.get(url + 'login?pseudo=' + this.login + '&password=' + this.password)
         .then((response) => {
-          console.log(response)
           this.$store.commit('setUser', response)
+          this.$router.push('/tchat/Général')
         })
     }
   }
