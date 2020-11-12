@@ -1,5 +1,5 @@
-//require("./services/auth");
+require("./services/auth");
 
-//module.exports = {
-//requireAuth: require("./middlewares/requireAuth."),
-//};
+module.exports = {
+  requireAuth: require("./middlewares/requireAuth."),
+};

@@ -1,5 +1,5 @@
 const db = require("../db/mongo");
-const socket = require("../sevices/socket");
+const socket = require("../services/socket");
 
 exports.getPublicMessage = async function (req, res, next) {
   const { room_id } = req.query;
