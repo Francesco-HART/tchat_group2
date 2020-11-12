@@ -36,6 +36,12 @@ class UserClass {
     return await collection.findOne({ pseudo: pseudo });
   }
 
+  async findUserById(id) {
+    const collection = await this.getCollectionUser();
+    return await collection.findOne({ _id: id });
+  }
+
+
   /*async findSeveralUserByPseudo(pseudos) {
         const collection = await this.getCollectionUser();
         const result = await collection.find({pseudo: {$in: pseudos}});

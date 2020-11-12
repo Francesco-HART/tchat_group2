@@ -42,7 +42,7 @@
             </md-list-item>
           </router-link>
 
-          <router-link :to="{name:'Tchat', params: {id: this.annonce}}">
+          <router-link :to="{name:'Tchat', params: {id: this.annonces}}">
             <md-list-item>
               <md-icon>dns</md-icon>
               <span class="md-list-item-text">#Annonce</span>
@@ -74,7 +74,7 @@ export default {
   data: () => ({
     menuVisible: false,
     general: 'Général',
-    annonce: 'Annonce'
+    annonces: 'Annonces'
   }),
   methods: {
     toggleMenu () {

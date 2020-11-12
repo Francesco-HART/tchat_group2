@@ -8,18 +8,10 @@
           </md-card-header>
           <md-card-content>
             <md-content class="md-scrollbar">
-              <p>Autem enim asperiores consequuntur neque sequi ea similique ex maxime, repudiandae doloremque aliquam exercitationem omnis assumenda. Rem suscipit pariatur vero facere?</p>
-              <p>Necessitatibus aut cumque sit ad. Tempora perferendis nostrum, in assumenda accusantium vitae vero pariatur sapiente nam quisquam, ducimus distinctio quae nisi.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perspiciatis sit quaerat molestiae iusto adipisci possimus cum modi quam qui esse vero provident, ad, deserunt laborum quas eligendi beatae quibusdam.</p>
+              <div v-for="(message, index) in messageTchat" v-bind:key="index">
+                <p>{{message.sender_id}}</p>
+                <p>{{message.message}}</p>
+              </div>
             </md-content>
           </md-card-content>
 
@@ -41,6 +33,9 @@
 
 <script>
 
+import axios from 'axios'
+import { url } from '@/const'
+
 export default {
   name: 'Salon',
   props: {
@@ -50,10 +45,26 @@ export default {
     textarea: '',
     messageTchat: ''
   }),
+  async mounted () {
+    this.messageTchat = await this.getMessagesRoom(this.$route.params.id)
+    console.log(this.messageTchat)
+  },
+  watch: {
+    async $route () {
+      this.messageTchat = await this.getMessagesRoom(this.$route.params.id)
+      console.log(this.messageTchat)
+    }
+  },
   methods: {
     onMessage: function () {
       console.log(this.textarea)
       this.textarea = ''
+    },
+    getMessagesRoom: (param) => {
+      return axios.get(url + 'rooms?room_name=' + param.toLowerCase())
+        .then((response) => {
+          return response.data.message
+        })
     }
   }
 }
