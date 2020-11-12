@@ -28,9 +28,16 @@ Vue.use(BootstrapVueIcons)
 Vue.use(VueMoment, { moment, momentTimezone })
 Vue.use(AsyncComputed)
 
-Vue.use(VueSocketIO, io('http://localhost:5055'), store)
-
-
+//Vue.use(VueSocketIO, io('http://localhost:5055'), store)
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://localhost:5055',
+  vuex: {
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
+  },
+}))
 new Vue({
   router,
   store,

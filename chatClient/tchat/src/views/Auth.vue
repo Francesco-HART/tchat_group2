@@ -30,10 +30,10 @@
 
 <script>
 
-  socket.on('is_auth', (data) => {
+/* socket.on('is_auth', (data) => {
     app.pseudo = data.pseudo;
-  })
-  export default {
+  }) */
+export default {
   name: 'Auth',
   data: () => ({
     login: '',
