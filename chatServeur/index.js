@@ -4,7 +4,11 @@ const http = require("http");
 const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
+const bodyParser = require("body-parser");
 /* End setup webserver */
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const createHandlers = require("./src/PacketHandlers");
 
