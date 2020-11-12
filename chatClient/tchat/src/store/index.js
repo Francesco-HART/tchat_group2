@@ -26,7 +26,7 @@ export default new Vuex.Store({
       state.user = user
     },
     listServers (state, servers) {
-      state.servers.push(servers)
+      state.servers = servers
     }
   },
   actions: {

@@ -9,8 +9,7 @@
           <md-card-content>
             <md-content class="md-scrollbar">
               <div v-for="(message, index) in messageTchat" v-bind:key="index">
-                <p>{{message.sender_id}}</p>
-                <p>{{message.message}}</p>
+                <p>{{message.pseudo}} : {{message.message}}</p>
               </div>
             </md-content>
           </md-card-content>
@@ -46,24 +45,28 @@ export default {
     messageTchat: ''
   }),
   async mounted () {
-    this.messageTchat = await this.getMessagesRoom(this.$route.params.id)
-    console.log(this.messageTchat)
+    this.messageTchat = await this.getMessagesRoom(this.$route.params.name)
   },
   watch: {
     async $route () {
-      this.messageTchat = await this.getMessagesRoom(this.$route.params.id)
-      console.log(this.messageTchat)
+      this.messageTchat = await this.getMessagesRoom(this.$route.params.name)
     }
   },
   methods: {
     onMessage: function () {
-      console.log(this.textarea)
+      this.postMessagesRoom(this.$store.state.user.data._id, this.$route.params.id, this.textarea)
       this.textarea = ''
     },
     getMessagesRoom: (param) => {
       return axios.get(url + 'rooms?room_name=' + param.toLowerCase())
         .then((response) => {
-          return response.data.message
+          return response.data
+        })
+    },
+    postMessagesRoom: (userId, roomId, message) => {
+      axios.post(url + 'message/public', { sender_id: userId, room_id: roomId, message: message })
+        .then((response) => {
+          console.log(response)
         })
     }
   }

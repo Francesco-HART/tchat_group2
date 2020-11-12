@@ -35,25 +35,11 @@
             </md-list-item>
           </router-link>
 
-          <router-link :to="{name:'Tchat', params: {id: this.general}}">
-            <md-list-item>
-              <md-icon>dns</md-icon>
-              <span class="md-list-item-text">#Général</span>
-            </md-list-item>
-          </router-link>
-
-          <router-link :to="{name:'Tchat', params: {id: this.annonces}}">
-            <md-list-item>
-              <md-icon>dns</md-icon>
-              <span class="md-list-item-text">#Annonce</span>
-            </md-list-item>
-          </router-link>
-
           <div v-for="(servers, index) in cServers" v-bind:key="index">
-            <router-link  :to="{name:'Tchat', params: {id: servers}}">
+            <router-link  :to="{name:'Tchat', params: {name: servers.room_name, id: servers._id }}">
               <md-list-item>
                 <md-icon>dns</md-icon>
-                <span class="md-list-item-text">#{{servers}}</span>
+                <span class="md-list-item-text">#{{servers.room_name}}</span>
               </md-list-item>
             </router-link>
           </div>
@@ -69,6 +55,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { url } from '@/const'
+
 export default {
   name: 'App',
   data: () => ({
@@ -76,14 +65,24 @@ export default {
     general: 'Général',
     annonces: 'Annonces'
   }),
+  mounted () {
+    this.getServer()
+  },
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
+    },
+    getServer: function () {
+      axios.get(url + 'all-rooms')
+        .then((response) => {
+          this.$store.commit('listServers', response.data)
+        })
     }
   },
   computed: {
     cServers: {
       get () {
+        // console.log(this.$store.state.servers)
         return this.$store.state.servers
       }
     }

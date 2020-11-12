@@ -12,11 +12,11 @@ export default {
     room: ''
   }),
   mounted () {
-    this.room = this.$route.params.id
+    this.room = this.$route.params.name
   },
   watch: {
     $route () {
-      this.room = this.$route.params.id
+      this.room = this.$route.params.name
     }
   },
   components: {
