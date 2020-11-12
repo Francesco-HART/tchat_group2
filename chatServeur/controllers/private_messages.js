@@ -1,6 +1,5 @@
 const db = require("../db/mongo");
-const socket = require("../services/socket");
-
+const io = require("../services/socket");
 exports.getUserSentMessages = async function (req, res, next) {
   const { user_id } = req.query;
   if (!user_id) {
@@ -43,8 +42,6 @@ exports.joinPrivateConversation = async function (req, res, next) {
     user_id
   );
 
-  socket.leave(last_room_name);
-  socket.join(recever_id + sender_id);
   return res.status(200).json(messages);
 };
 
@@ -63,10 +60,11 @@ exports.createMessage = async function (req, res, next) {
   }
 
   const params = {
-    sender_id: sender_id,
-    receiver_id: receiver_id,
-    message: message,
+    sender_id,
+    receiver_id,
+    message,
   };
   await db.privateMessage.getAddPrivateMessage(params);
+  socket.to(sender_id + receiver_id).emit(sender_id + receiver_id, new_message);
   return res.status(200).send(params);
 };

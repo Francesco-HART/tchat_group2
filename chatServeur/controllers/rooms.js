@@ -1,6 +1,5 @@
 const db = require("../db/mongo");
-const socket = require("../services/socket");
-
+const io = require("../services/socket");
 exports.createRoom = async function (req, res, next) {
   const { creator_id, room_name } = req.body;
 
@@ -32,11 +31,6 @@ exports.getRoomWithMessages = async function (req, res, next) {
     let room = await db.rooms.getRoomByName(room_name);
     const messages = await db.publicMessage.getPublicMessages(room._id);
     room["message"] = messages;
-
-    if (last_room_name !== null || last_room_name !== undefined)
-      socket.leave(last_room_name);
-
-    socket.join(room.name);
 
     return res.status(200).json(room);
   } catch (e) {
