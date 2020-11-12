@@ -8,11 +8,27 @@ import store from '@/store'
 
 Vue.use(VueRouter)
 
-function guardMyroute (to, from, next) {
-  console.log(store.getters.user.data)
-  const isAuthenticated = !!store.getters.user.data
+function isUserExist () {
+  try {
+    return !!store.getters.user.data
+  } catch (e) {
+    return false
+  }
+}
+
+function guardMyrouteLoggin (to, from, next) {
+  const isAuthenticated = isUserExist()
   if (isAuthenticated) {
-    next('/tchat/Général')
+    next('/tchat/général')
+  } else {
+    next('/auth')
+  }
+}
+
+function guardMyroute (to, from, next) {
+  const isAuthenticated = isUserExist()
+  if (isAuthenticated) {
+    next()
   } else {
     next('/auth')
   }
@@ -31,8 +47,9 @@ const routes = [
     component: AddServer
   },
   {
-    path: '/tchat/:id',
+    path: '/tchat/:name',
     name: 'Tchat',
+    beforeEnter: guardMyroute,
     component: Tchat
   },
   {
@@ -50,7 +67,7 @@ const routes = [
   {
     path: '*',
     name: 'Auth',
-    beforeEnter: guardMyroute,
+    beforeEnter: guardMyrouteLoggin,
     component: Auth
   }
 ]

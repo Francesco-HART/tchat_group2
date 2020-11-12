@@ -36,9 +36,15 @@ class RoomClass {
     return new_room;
   }
 
+  async getRoom() {
+    const collection = await this.getCollectionRooms();
+    const room = await collection.find().toArray();
+    return room;
+  }
+
   async getRoomByName(room_name) {
     const collection = await this.getCollectionRooms();
-    const room = await collection.find({ room_name: room_name }).toArray();
+    const room = await collection.findOne({ room_name: room_name });
     return room;
   }
 }

@@ -23,12 +23,10 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser (state, user) {
-      console.log(user)
       state.user = user
     },
     listServers (state, servers) {
-      state.servers.push(servers)
-      console.log(state.servers)
+      state.servers = servers
     }
   },
   actions: {
