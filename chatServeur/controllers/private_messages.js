@@ -65,6 +65,8 @@ exports.createMessage = async function (req, res, next) {
     message,
   };
   await db.privateMessage.getAddPrivateMessage(params);
+
   socket.to(sender_id + receiver_id).emit(sender_id + receiver_id, new_message);
+
   return res.status(200).send(params);
 };
