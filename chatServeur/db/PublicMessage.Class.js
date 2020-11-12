@@ -31,13 +31,23 @@ class PublicMessage {
     return db.collection("public_messages");
   }
 
-  async getPublicMessages(room_id) {
+  /*async getPublicMessages(room_id) {
+    const collection = await this.getCollectionPublicMessage();
+    const messages = await collection
+        .aggregate([{$match:{"room_id": room_id}}, {$unwind: ""},])
+      .toArray();
+    return messages;
+  }*/
+
+
+   async getPublicMessages(room_id) {
     const collection = await this.getCollectionPublicMessage();
     const messages = await collection
       .find({ room_id: ObjectId(room_id) })
       .toArray();
     return messages;
   }
+
 
   async insertNewPulicMessage(params) {
     const collection = await this.getCollectionPublicMessage();

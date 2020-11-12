@@ -34,19 +34,21 @@ exports.getRoomWithMessages = async function (req, res, next) {
     let room = await db.rooms.getRoomByName(room_name);
     const messages = await db.publicMessage.getPublicMessages(room._id);
     room["message"] = messages;
-    let user;
-    room.message.forEach( async (message, index) => {
-      const user = await db.users.findUserById(room.message[index].sender_id)
-      room.message[index] = {...room.message[index], user_pseudo: user.pseudo}
-    })
 
+    const roomFinal = room.message.map( async (message, index) => {
+      const user = await db.users.findUserById(room.message[index].sender_id);
+      room.message[index]["pseudo"] = user.pseudo;
+      return room;
+    })
 
     if (last_room_name !== null || last_room_name !== undefined)
       // socket.leave(last_room_name);
 
     // socket.join(room.name);
+    Promise.all(roomFinal).then(function (results) {
+      return res.status(200).json(results);
+    });
 
-    return res.status(200).json(room);
   } catch (e) {
     console.log(e);
     return res.status(500).json({ error: "error serveur" });
