@@ -20,10 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d562c848-8435-4943-a249-1ba16c6dba1b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatServeur/db/Mongo.Class.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/Mongo.Class.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatServeur/db/demo_mongo.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/demo_mongo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatServeur/src/PacketHandlers.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/src/PacketHandlers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1605170511316</updated>
       <workItem from="1605170513567" duration="8452000" />
-      <workItem from="1605179296935" duration="3861000" />
+      <workItem from="1605179296935" duration="4553000" />
     </task>
     <servers />
   </component>

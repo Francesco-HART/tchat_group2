@@ -2,6 +2,10 @@ require('dotenv').config()
 const { MongoClient } = require('mongodb')
 const passwordHash = require('password-hash');
 
+//model du user = {pseudo: "", password:"", }
+//voir pour les message, msg (user: {msg:[id1, id2, id3]}
+//si on fait une collection users et une messages, ou direct les messages associé aux user (tableau de msg)
+
 class MongoClass{
     constructor() {
         this.db = this.dbConnect()
@@ -22,14 +26,13 @@ class MongoClass{
         return db.collection("users");
     }
 
-    async findUser(data) {
-        console.log("try get user")
+    async findUserByName(data) {
         const collection = await this.getCollectionUser();
         return await collection.findOne({pseudo: data.pseudo})
     }
 
     async insertUser(data){
-        const dbData = this.findUser(data)
+        const dbData = this.findUserByName(data)
         if (dbData===null || dbData===undefined){
             const hashedPassword = passwordHash.generate(data.password);
             const db = await this.getDb();
@@ -42,7 +45,7 @@ class MongoClass{
     }
 
     async isUserAuth(data){
-        const dbData = this.findUser(data)
+        const dbData = this.findUserByName(data)
         const hashedPassword = dbData.password;
         return passwordHash.verify(data.password, hashedPassword);
     }
