@@ -12,6 +12,8 @@ import VueMoment from 'vue-moment'
 import AsyncComputed from 'vue-async-computed'
 import momentTimezone from 'moment-timezone'
 import store from '@/store'
+import * as io from 'socket.io-client'
+import VueSocketIO from 'vue-socket.io'
 
 const moment = require('moment')
 require('moment/locale/fr')
@@ -25,6 +27,9 @@ Vue.use(IconsPlugin)
 Vue.use(BootstrapVueIcons)
 Vue.use(VueMoment, { moment, momentTimezone })
 Vue.use(AsyncComputed)
+
+Vue.use(VueSocketIO, io('http://localhost:5055'), store)
+
 
 new Vue({
   router,

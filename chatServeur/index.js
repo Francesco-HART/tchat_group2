@@ -28,8 +28,8 @@ io.on("connection", function (socket_client) {
   console.log("Client connected", socket_client.id);
 
   const handlers = createHandlers(io, socket_client);
-
-  socket_client.on("change_pseudo", handlers.InsertUser);
+  socket_client.on("is_auth", handlers.IsAuth);
+  socket_client.on("insert_user", handlers.InsertUser);
   socket_client.on("send_message", handlers.SendMessage);
   socket_client.on("disconnect", handlers.Disconnect);
 });

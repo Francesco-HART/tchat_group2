@@ -29,16 +29,20 @@
 </template>
 
 <script>
-export default {
+
+  socket.on('is_auth', (data) => {
+    app.pseudo = data.pseudo;
+  })
+  export default {
   name: 'Auth',
   data: () => ({
     login: '',
     password: ''
   }),
+
   methods: {
     onLogin: function () {
-      console.log(this.login)
-      console.log(this.password)
+      this.$socket.emit('is_auth', { pseudo: this.login, password: this.password })
     }
   }
 }

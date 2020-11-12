@@ -65,9 +65,9 @@ class MongoClass{
     }
     //endregion
 
-    async getCollectionMessage(){
+    async getCollectionPrivateMessage(){
         const db = await this.getDb();
-        return db.collection("messages");
+        return db.collection("private_messages");
     }
 
     async findMessageByUserName(data) {
@@ -75,6 +75,19 @@ class MongoClass{
         return await collection.find({pseudo: data.pseudo})
     }
 
+
+    async getCollectionRooms(){
+        const db = await this.getDb();
+        return db.collection("rooms");
+    }
+
+
+    async getCollectionPublicMessage(){
+        const db = await this.getDb();
+        return db.collection("public_messages");
+    }
+
+    
 }
 
 exports.MongoClass = MongoClass

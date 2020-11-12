@@ -38,7 +38,7 @@ function createHandlers(io, socket_client) {
     }
   };
 
-  const FindUSer = async (data) => {
+  const IsAuth = async (data) => {
     const isFind = await db.users.isUserAuth({pseudo: "new user", password:"password"})
     if (isFind){
       socket_client.emit('check_connected', {isConnected:true, pseudo:data.pseudo});
@@ -69,7 +69,7 @@ function createHandlers(io, socket_client) {
     SendMessage,
     InsertUser,
     Disconnect,
-    FindUSer
+    IsAuth,
   };
 }
 
