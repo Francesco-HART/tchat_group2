@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Tchat from '@/views/Tchat'
 import Auth from '@/views/Auth'
 import AddServer from '@/views/AddServer'
+import PrivateMessages from '@/views/PrivateMessages'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,16 @@ const routes = [
   {
     path: '/tchat/:id',
     name: 'Tchat',
+    component: Tchat
+  },
+  {
+    path: '/privateMessages',
+    name: 'privateMessages',
+    component: PrivateMessages
+  },
+  {
+    path: '/privateMessages/:id',
+    name: 'privateMessagesRoom',
     component: Tchat
   }
 ]

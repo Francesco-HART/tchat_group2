@@ -11,11 +11,13 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     server: '',
-    servers: []
+    servers: [],
+    messagesRooms: ['test', 'Antony']
   },
   getters: {
     server: state => state.server,
-    servers: state => state.servers
+    servers: state => state.servers,
+    messagesRooms: state => state.messagesRooms
   },
   mutations: {
     changeCity (state, server) {
