@@ -5,7 +5,6 @@ const cors = require("cors");
 const Cookies = require("cookies");
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")();
 const bodyParser = require("body-parser");
 /* End setup webserver */
 
@@ -16,7 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }));
 
 const router = require("./router");
-
 // services
 require("./services/auth");
 app.use(Cookies.express({ keys: ["vjeqckHAvFOzxrKr6nJQI9Myl2yAOfTp"] }));
@@ -26,4 +24,8 @@ const PORT = 5000;
 server.listen(PORT, () => {
   console.log("started " + PORT);
 });
-io.listen(server);
+options = {
+  cors: true,
+  origins: ["http://localhost:5000"],
+};
+const io = require("socket.io")(server, options);

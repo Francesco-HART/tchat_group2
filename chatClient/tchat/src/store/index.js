@@ -29,10 +29,7 @@ export default new Vuex.Store({
       state.servers = servers
     }
   },
-  actions: {
-
-  },
-  modules: {
-  },
+  actions: {},
+  modules: {},
   plugins: [vuexLocal.plugin]
 })

@@ -31,62 +31,56 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { url } from '@/const'
-import io from 'socket.io-client'
+import axios from "axios";
+import { url } from "@/const";
 
 export default {
-  name: 'Salon',
+  name: "Salon",
   props: {
     nameRoom: String
   },
   data: () => ({
-    textarea: '',
-    messageTchat: '',
-    socket: io('http://localhost:5000')
+    textarea: "",
+    messageTchat: ""
   }),
-  async mounted () {
-    this.messageTchat = await this.getMessagesRoom(this.$route.params.name)
+  async mounted() {
+    this.messageTchat = await this.getMessagesRoom(this.$route.params.id);
   },
   watch: {
-    async $route () {
-      this.messageTchat = await this.getMessagesRoom(this.$route.params.name)
+    async $route() {
+      this.messageTchat = await this.getMessagesRoom(this.$route.params.id);
     }
   },
 
   methods: {
-    onMessage: async function () {
-      const newMessage = await this.postMessagesRoom(
+    onMessage: async function() {
+      await this.postMessagesRoom(
         this.$store.state.user.data._id,
         this.$route.params.id,
         this.textarea
-      )
-      this.socket
-        .to(this.$route.params.id)
-        .emit(this.$route.params.id, newMessage)
-      this.textarea = ''
+      );
+
+      this.textarea = "";
     },
     getMessagesRoom: param => {
-      return axios
-        .get(url + 'rooms?room_name=' + param.toLowerCase())
-        .then(response => {
-          return response.data
-        })
+      return axios.get(url + "rooms?room_id=" + param).then(response => {
+        return response.data;
+      });
     },
     postMessagesRoom: (userId, roomId, message) => {
       axios
-        .post(url + 'message/public', {
+        .post(url + "message/public", {
           sender_id: userId,
           room_id: roomId,
           message: message
         })
         .then(response => {
-          console.log(response.config.data)
-          return response.config.data
-        })
+          console.log(response.config.data);
+          return response.config.data;
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

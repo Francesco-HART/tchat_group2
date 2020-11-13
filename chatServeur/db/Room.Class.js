@@ -47,6 +47,12 @@ class RoomClass {
     const room = await collection.findOne({ room_name: room_name });
     return room;
   }
+
+  async getRoomById(room_id) {
+    const collection = await this.getCollectionRooms();
+    const room = await collection.findOne({ _id: room_id });
+    return room;
+  }
 }
 
 module.exports = RoomClass;
