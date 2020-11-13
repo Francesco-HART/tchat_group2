@@ -51,6 +51,11 @@
               </md-list-item>
             </router-link>
           </div>
+
+          <md-list-item>
+            <md-icon>highlight_off</md-icon>
+            <span class="md-list-item-text" v-on:click="onDeconnect">Deconnexion</span>
+          </md-list-item>
         </md-list>
       </md-app-drawer>
 
@@ -84,6 +89,10 @@ export default {
       axios.get(url + 'all-rooms').then(response => {
         this.$store.commit('listServers', response.data)
       })
+    },
+    onDeconnect () {
+      this.$store.commit('setUser', null)
+      this.$router.push('/auth')
     }
   },
 
