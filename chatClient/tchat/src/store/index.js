@@ -11,7 +11,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     user: null,
-    server: '',
+    server: null,
     servers: [],
     messagesRooms: ['test', 'Antony']
   },
@@ -25,14 +25,14 @@ export default new Vuex.Store({
     setUser (state, user) {
       state.user = user
     },
+    setServer (state, server) {
+      state.server = server
+    },
     listServers (state, servers) {
       state.servers = servers
     }
   },
-  actions: {
-
-  },
-  modules: {
-  },
+  actions: {},
+  modules: {},
   plugins: [vuexLocal.plugin]
 })

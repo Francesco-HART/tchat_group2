@@ -31,7 +31,7 @@ class RoomClass {
   }
 
   async createRoom(params) {
-    const collection = this.getCollectionRooms();
+    const collection = await this.getCollectionRooms();
     const new_room = await collection.insertOne(params);
     return new_room;
   }
@@ -45,6 +45,12 @@ class RoomClass {
   async getRoomByName(room_name) {
     const collection = await this.getCollectionRooms();
     const room = await collection.findOne({ room_name: room_name });
+    return room;
+  }
+
+  async getRoomById(room_id) {
+    const collection = await this.getCollectionRooms();
+    const room = await collection.findOne({ _id: ObjectId(room_id) });
     return room;
   }
 }

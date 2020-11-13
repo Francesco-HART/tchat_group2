@@ -1,5 +1,8 @@
+const io = require("../index");
+
+
 const db = require("../db/mongo");
-const socket = require("../services/socket");
+// const socket = require("../services/socket");
 
 exports.getPublicMessage = async function (req, res, next) {
   const { room_id } = req.query;
@@ -12,8 +15,9 @@ exports.getPublicMessage = async function (req, res, next) {
 };
 
 exports.sendPublicMessage = async function (req, res, next) {
+
+
   const { sender_id, room_id, message } = req.body;
-  console.log(req.body);
   if (
     sender_id == null ||
     sender_id == undefined ||
@@ -21,17 +25,21 @@ exports.sendPublicMessage = async function (req, res, next) {
     room_id == undefined ||
     message == null ||
     message == undefined
-  ) {
+  )
     return res.status(404).send({ error: "Champs manquant" });
-  }
 
+  const sender_user = await db.users.findUserById(sender_id);
   const params = {
     sender_id,
+    pseudo: sender_user.pseudo,
     room_id,
     message,
   };
 
-  const new_message = await db.publicMessage.insertNewPulicMessage(params);
-  // socket.to(room_id).emit(room_id, new_message);
-  return res.status(200).send(new_message);
+  const newMessage = await db.publicMessage.insertNewPulicMessage(params);
+
+  io.io.emit('sendMessage', newMessage.ops)
+
+
+  return res.status(200).send(newMessage);
 };

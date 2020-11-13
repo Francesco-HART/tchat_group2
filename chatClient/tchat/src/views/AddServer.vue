@@ -22,14 +22,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { url } from '@/const'
+
 export default {
   name: 'AddServer',
-  data: () => ({
-    server: ''
-  }),
+  data () {
+    return {
+      server: '',
+      item: ''
+    }
+  },
   methods: {
-    onSend: function () {
-      this.$store.commit('listServers', this.server)
+    onSend: async function () {
+      const server = await axios.post(url + 'rooms', { room_name: this.server }).then(
+        result => result
+      )
+      await this.$router.push('/tchat/' + server.data.ops[0].room_name + '/' + server.data.ops[0]._id)
     }
   }
 }

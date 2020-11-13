@@ -50,6 +50,8 @@ class PublicMessage {
 
 
   async insertNewPulicMessage(params) {
+    params.sender_id = ObjectId(params.sender_id)
+    params.room_id = ObjectId(params.room_id)
     const collection = await this.getCollectionPublicMessage();
     const messages = await collection.insertOne(params);
     return messages;

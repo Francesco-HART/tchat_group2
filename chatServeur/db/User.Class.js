@@ -38,9 +38,8 @@ class UserClass {
 
   async findUserById(id) {
     const collection = await this.getCollectionUser();
-    return await collection.findOne({ _id: id });
+    return await collection.findOne({ _id: ObjectId(id) });
   }
-
 
   /*async findSeveralUserByPseudo(pseudos) {
         const collection = await this.getCollectionUser();
@@ -76,13 +75,13 @@ class UserClass {
       dbData = await this.findUserByPseudo(data.pseudo);
       hashedPassword = dbData.password;
     } catch (e) {
-      return {error: 'Pseudo incorrect'}
+      return { error: "Pseudo incorrect" };
     }
 
     if (passwordHash.verify(data.password, hashedPassword)) {
       return dbData;
     } else {
-      return {error: 'erreur serveur'};
+      return { error: "erreur serveur" };
     }
   }
   //endregion

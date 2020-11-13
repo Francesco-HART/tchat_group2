@@ -2,7 +2,11 @@
   <div class="page-container" id="app">
     <md-app>
       <md-app-toolbar class="md-primary">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+        <md-button
+          class="md-icon-button"
+          @click="toggleMenu"
+          v-if="!menuVisible"
+        >
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Tchat</span>
@@ -20,15 +24,14 @@
         </md-toolbar>
 
         <md-list>
-
-          <router-link :to="{name:'privateMessages'}">
+          <router-link :to="{ name: 'privateMessages' }">
             <md-list-item>
               <md-icon>chat</md-icon>
               <span class="md-list-item-text">Message Privée</span>
             </md-list-item>
           </router-link>
 
-          <router-link  :to="{name:'AddServer'}">
+          <router-link :to="{ name: 'AddServer' }">
             <md-list-item>
               <md-icon>add</md-icon>
               <span class="md-list-item-text">Nouveau serveur</span>
@@ -36,14 +39,23 @@
           </router-link>
 
           <div v-for="(servers, index) in cServers" v-bind:key="index">
-            <router-link  :to="{name:'Tchat', params: {name: servers.room_name, id: servers._id }}">
+            <router-link
+              :to="{
+                name: 'Tchat',
+                params: { name: servers.room_name, id: servers._id }
+              }"
+            >
               <md-list-item>
                 <md-icon>dns</md-icon>
-                <span class="md-list-item-text">#{{servers.room_name}}</span>
+                <span class="md-list-item-text">#{{ servers.room_name }}</span>
               </md-list-item>
             </router-link>
           </div>
 
+          <md-list-item>
+            <md-icon>highlight_off</md-icon>
+            <span class="md-list-item-text" v-on:click="onDeconnect">Deconnexion</span>
+          </md-list-item>
         </md-list>
       </md-app-drawer>
 
@@ -57,6 +69,15 @@
 <script>
 import axios from 'axios'
 import { url } from '@/const'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:5000')
+const serverIo = []
+
+socket.on('addServer', (data) => {
+  serverIo.push(data[0])
+  console.log(serverIo)
+})
 
 export default {
   name: 'App',
@@ -73,17 +94,24 @@ export default {
       this.menuVisible = !this.menuVisible
     },
     getServer: function () {
-      axios.get(url + 'all-rooms')
-        .then((response) => {
-          this.$store.commit('listServers', response.data)
-        })
+      axios.get(url + 'all-rooms').then(response => {
+        this.$store.commit('listServers', response.data)
+      })
+    },
+    onDeconnect () {
+      this.$store.commit('setUser', null)
+      this.$router.push('/auth')
     }
   },
   computed: {
     cServers: {
       get () {
-        // console.log(this.$store.state.servers)
         return this.$store.state.servers
+      }
+    },
+    cServersIo: {
+      get () {
+        return serverIo
       }
     }
   }
@@ -93,7 +121,7 @@ export default {
 <style lang="scss" scoped>
 .md-app {
   min-height: 100vh;
-  border: 1px solid rgba(#000, .12);
+  border: 1px solid rgba(#000, 0.12);
 }
 
 .md-drawer {

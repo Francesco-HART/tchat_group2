@@ -1,11 +1,10 @@
 const db = require("../db/mongo");
-const io = require("../services/socket");
-exports.createRoom = async function (req, res, next) {
-  const { creator_id, room_name } = req.body;
+const io = require("../index");
 
+exports.createRoom = async function (req, res, next) {
+  const {room_name} = req.body;
+  console.log(req.body);
   if (
-    creator_id == null ||
-    creator_id == undefined ||
     room_name == null ||
     room_name == undefined
   ) {
@@ -13,48 +12,47 @@ exports.createRoom = async function (req, res, next) {
   }
 
   const params = {
-    creator_id: creator_id,
     room_name: room_name,
-    users: [creator_id],
   };
   const new_room = await db.rooms.createRoom(params);
-  socket.broadcast.emit("broadcast", new_room);
+
+  io.io.emit('addServer', new_room.ops)
+
   return res.status(200).send(new_room);
 };
 
 exports.getRoom = async function (req, res, next) {
-  const room = await db.rooms.getRoom()
-  console.log(room);
+  const room = await db.rooms.getRoom();
   return res.status(200).send(room);
-}
+};
 
 exports.getRoomWithMessages = async function (req, res, next) {
-  const { room_name, last_room_name } = req.query;
-  console.log(room_name);
-  if (room_name === null || room_name === undefined) {
+  const { room_id, last_room_name } = req.query;
+  if (room_id === null || room_id === undefined) {
     return res.status(404).send({ error: "Aucun nom de room" });
   }
   try {
-    let room = await db.rooms.getRoomByName(room_name);
+    let room = await db.rooms.getRoomById(room_id);
+    if (room === null || room === undefined) {
+      return res.status(404).send({ error: "Aucun nom de room" });
+    }
     const messages = await db.publicMessage.getPublicMessages(room._id);
     room["message"] = messages;
 
-
-    const roomFinal = room.message.map( async (message) => {
+    const roomFinal = room.message.map(async (message) => {
       const user = await db.users.findUserById(message.sender_id);
       message["pseudo"] = user.pseudo;
-      return message
-    })
-
-    if (last_room_name !== null || last_room_name !== undefined)
-      // socket.leave(last_room_name);
-
-    // socket.join(room.name);
-    Promise.all(roomFinal).then(function (results) {
-      return res.status(200).json(results);
+      return message;
     });
 
-
+    Promise.all(roomFinal).then(function (results) {
+      const resultFinal = {
+        room_id: room._id,
+        room_name: room.room_name,
+        room_converse: results,
+      };
+      return res.status(200).json(resultFinal);
+    });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ error: "error serveur" });
