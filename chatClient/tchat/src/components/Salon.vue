@@ -44,7 +44,7 @@ import { url } from '@/const'
 import io from 'socket.io-client'
 
 const socket = io('http://localhost:5000')
-let messageIo = []
+const messageIo = []
 
 socket.on('sendMessage', (data) => {
   messageIo.push(data[0])
@@ -57,14 +57,19 @@ export default {
   },
   data: () => ({
     textarea: '',
-    room: ''
+    room: '',
+    dataTab: []
   }),
   async mounted () {
+    socket.on('sendMessage', (data) => {
+      this.dataTab.push(data[0])
+    })
     this.room = await this.getMessagesRoom(this.$route.params.id)
     this.$store.commit('setServer', this.room)
   },
   watch: {
     async $route () {
+      this.dataTab = []
       this.room = await this.getMessagesRoom(this.$route.params.id)
       this.$store.commit('setServer', this.room)
     }
@@ -95,7 +100,7 @@ export default {
   computed: {
     cMessagesIo: {
       get () {
-        return messageIo
+        return this.dataTab
       }
     }
   }
