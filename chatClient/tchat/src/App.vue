@@ -102,6 +102,7 @@ export default {
       })
     },
     onDeconnect () {
+      axios.get(url + 'signout').then(response => {})
       this.$store.commit('setUser', null)
       this.$router.push('/auth')
     }
