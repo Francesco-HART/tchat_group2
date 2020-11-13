@@ -34,58 +34,59 @@
 </template>
 
 <script>
-import axios from "axios";
-import { url } from "@/const";
-
+import axios from 'axios'
+import { url } from '@/const'
+import io from 'socket.io-client'
 export default {
-  name: "Salon",
+  name: 'Salon',
   props: {
     nameRoom: String
   },
   data: () => ({
-    textarea: "",
-    room: ""
+    textarea: '',
+    room: '',
+    socket: io('http://localhost:5000')
   }),
-  async mounted() {
-    this.room = await this.getMessagesRoom(this.$route.params.id);
-    this.$store.commit("setServer", this.room);
+  async mounted () {
+    this.room = await this.getMessagesRoom(this.$route.params.id)
+    this.$store.commit('setServer', this.room)
+    this.socket.on('francesco', newMessage => {
+      console.log(newMessage, 'icii')
+      if (newMessage && Object.keys(newMessage).length > 0) {
+        this.$store.commit('addMessage', newMessage)
+      }
+    })
   },
   watch: {
-    async $route() {
-      this.room = await this.getMessagesRoom(this.$route.params.id);
-
-      this.socket.on(this.$route.params.id, data => {
-        console.log(data);
-        this.$store.commit("addMessage", data);
-      });
+    async $route () {
+      this.room = await this.getMessagesRoom(this.$route.params.id)
     }
   },
 
   methods: {
-    onMessage: async function() {
-      const newMessage = await this.postMessagesRoom(
+    onMessage: async function () {
+      await this.postMessagesRoom(
         this.$store.state.user.data._id,
         this.$route.params.id,
         this.textarea
-      );
-      this.$store.commit("addMessage", newMessage);
-      this.textarea = "";
+      )
+      this.textarea = ''
     },
     getMessagesRoom: param => {
-      return axios.get(url + "rooms?room_id=" + param).then(response => {
-        return response.data;
-      });
+      return axios.get(url + 'rooms?room_id=' + param).then(response => {
+        return response.data
+      })
     },
     postMessagesRoom: async (userId, roomId, message) => {
-      const newMessages = await axios.post(url + "message/public", {
+      const newMessages = await axios.post(url + 'message/public', {
         sender_id: userId,
         room_id: roomId,
         message: message
-      });
-      return newMessages.data;
+      })
+      return newMessages.data
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

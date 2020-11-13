@@ -4,13 +4,11 @@
 
 <script>
 import Salon from '@/components/Salon'
-import io from 'socket.io-client'
 
 export default {
   name: 'Tchat',
   data: () => ({
-    room: '',
-    socket: io('http://localhost:5000')
+    room: ''
   }),
   mounted () {
     this.room = this.$route.params.name
