@@ -12,6 +12,9 @@ import VueMoment from 'vue-moment'
 import AsyncComputed from 'vue-async-computed'
 import momentTimezone from 'moment-timezone'
 import store from '@/store'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:5000')
 
 const moment = require('moment')
 require('moment/locale/fr')
@@ -29,5 +32,6 @@ Vue.use(AsyncComputed)
 new Vue({
   router,
   store,
+  socket,
   render: h => h(App)
 }).$mount('#app')

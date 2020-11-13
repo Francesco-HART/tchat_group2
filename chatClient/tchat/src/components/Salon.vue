@@ -14,6 +14,12 @@
               >
                 <p>{{ message.pseudo }} : {{ message.message }}</p>
               </div>
+              <div
+                v-for="(message, index) in cMessagesIo"
+                v-bind:key="index"
+              >
+                <p>{{ message.pseudo }} : {{ message.message }}</p>
+              </div>
             </md-content>
           </md-card-content>
 
@@ -34,58 +40,69 @@
 </template>
 
 <script>
-import axios from "axios";
-import { url } from "@/const";
+import axios from 'axios'
+import { url } from '@/const'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:5000')
+const messageIo = []
+
+socket.on('sendMessage', (data) => {
+  messageIo.push(data[0])
+  console.log(messageIo)
+})
 
 export default {
-  name: "Salon",
+  name: 'Salon',
   props: {
     nameRoom: String
   },
   data: () => ({
-    textarea: "",
-    room: ""
+    textarea: '',
+    room: ''
   }),
-  async mounted() {
-    this.room = await this.getMessagesRoom(this.$route.params.id);
-    this.$store.commit("setServer", this.room);
+  async mounted () {
+    this.room = await this.getMessagesRoom(this.$route.params.id)
+    this.$store.commit('setServer', this.room)
   },
   watch: {
-    async $route() {
-      this.room = await this.getMessagesRoom(this.$route.params.id);
-
-      this.socket.on(this.$route.params.id, data => {
-        console.log(data);
-        this.$store.commit("addMessage", data);
-      });
+    async $route () {
+      this.room = await this.getMessagesRoom(this.$route.params.id)
+      this.$store.commit('setServer', this.room)
     }
   },
-
   methods: {
-    onMessage: async function() {
-      const newMessage = await this.postMessagesRoom(
+    onMessage: async function () {
+      await this.postMessagesRoom(
         this.$store.state.user.data._id,
         this.$route.params.id,
         this.textarea
-      );
-      this.$store.commit("addMessage", newMessage);
-      this.textarea = "";
+      )
+      // this.$store.commit('addMessage', newMessage)
+      this.textarea = ''
     },
     getMessagesRoom: param => {
-      return axios.get(url + "rooms?room_id=" + param).then(response => {
-        return response.data;
-      });
+      return axios.get(url + 'rooms?room_id=' + param).then(response => {
+        return response.data
+      })
     },
     postMessagesRoom: async (userId, roomId, message) => {
-      const newMessages = await axios.post(url + "message/public", {
+      await axios.post(url + 'message/public', {
         sender_id: userId,
         room_id: roomId,
         message: message
-      });
-      return newMessages.data;
+      }
+      )
+    }
+  },
+  computed: {
+    cMessagesIo: {
+      get () {
+        return messageIo
+      }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
