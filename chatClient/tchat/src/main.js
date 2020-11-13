@@ -14,6 +14,11 @@ import momentTimezone from 'moment-timezone'
 import store from '@/store'
 import io from 'socket.io-client'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+axios.defaults.withCredentials = true
+Vue.use(VueAxios, axios)
+
 const socket = io('http://localhost:5000')
 
 const moment = require('moment')
