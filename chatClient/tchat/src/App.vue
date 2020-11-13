@@ -72,29 +72,32 @@ import { url } from '@/const'
 import io from 'socket.io-client'
 
 const socket = io('http://localhost:5000')
-const serverIo = []
-
-socket.on('addServer', (data) => {
-  serverIo.push(data[0])
-  console.log(serverIo)
-})
 
 export default {
   name: 'App',
   data: () => ({
     menuVisible: false,
     general: 'Général',
-    annonces: 'Annonces'
+    annonces: 'Annonces',
+    servers: []
   }),
-  mounted () {
-    this.getServer()
+  async mounted () {
+    socket.on('addServer', (data) => {
+      this.servers.push(data[0])
+    })
+    await this.getServer()
+  },
+  watch: {
+    async $route () {
+      await this.getServer()
+    }
   },
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
     },
-    getServer: function () {
-      axios.get(url + 'all-rooms').then(response => {
+    getServer: async function () {
+      await axios.get(url + 'all-rooms').then(response => {
         this.$store.commit('listServers', response.data)
       })
     },
@@ -111,7 +114,7 @@ export default {
     },
     cServersIo: {
       get () {
-        return serverIo
+        return this.servers
       }
     }
   }
