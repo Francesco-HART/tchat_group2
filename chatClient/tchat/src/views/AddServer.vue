@@ -37,19 +37,12 @@ export default {
     addServer (event) {
       if (event.target.value !== '') {
         const roomName = event.target.value
-        const data = new FormData()
-        data.set('creator_id', this.$store.getters.user.data._id)
-        data.set('room_name', roomName)
-
-        axios(
-          {
-            method: 'post',
-            url: url + 'rooms',
-            data: data
-          })
+        axios.get(url + 'add-room?creator_id' + this.$store.getters.user.data._id + '&room_name', roomName)
           .then((response) => {
             this.$store.commit('addServer', response)
             this.$router.push('/tchat/' + roomName)
+          }).catch(function (erreur) {
+            console.log(erreur)
           })
       }
     }

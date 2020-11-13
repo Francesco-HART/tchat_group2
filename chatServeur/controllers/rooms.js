@@ -3,6 +3,8 @@ const io = require("../services/socket");
 exports.createRoom = async function (req, res, next) {
   const { creator_id, room_name } = req.body;
   console.log(req.body);
+  console.log(req);
+
   if (
     creator_id == null ||
     creator_id == undefined ||
