@@ -26,6 +26,10 @@ server.listen(PORT, () => {
 });
 options = {
   cors: true,
-  origins: ["http://localhost:5000"],
+  origins: ["*"],
 };
+
 const io = require("socket.io")(server, options);
+
+exports.io = io
+

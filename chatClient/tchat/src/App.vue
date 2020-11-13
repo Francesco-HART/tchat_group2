@@ -64,7 +64,15 @@
 <script>
 import axios from 'axios'
 import { url } from '@/const'
-// import io from 'socket.io-client'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:5000')
+const serverIo = []
+
+socket.on('addServer', (data) => {
+  serverIo.push(data[0])
+  console.log(serverIo)
+})
 
 export default {
   name: 'App',
@@ -86,11 +94,15 @@ export default {
       })
     }
   },
-
   computed: {
     cServers: {
       get () {
         return this.$store.state.servers
+      }
+    },
+    cServersIo: {
+      get () {
+        return serverIo
       }
     }
   }

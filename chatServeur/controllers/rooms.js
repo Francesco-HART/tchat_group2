@@ -1,11 +1,10 @@
 const db = require("../db/mongo");
-const io = require("../services/socket");
-exports.createRoom = async function (req, res, next) {
-  const { creator_id, room_name } = req.body;
+const io = require("../index");
 
+exports.createRoom = async function (req, res, next) {
+  const {room_name} = req.body;
+  console.log(req.body);
   if (
-    creator_id == null ||
-    creator_id == undefined ||
     room_name == null ||
     room_name == undefined
   ) {
@@ -13,12 +12,12 @@ exports.createRoom = async function (req, res, next) {
   }
 
   const params = {
-    creator_id: creator_id,
     room_name: room_name,
-    users: [creator_id],
   };
   const new_room = await db.rooms.createRoom(params);
-  socket.broadcast.emit("broadcast", new_room);
+
+  io.io.emit('addServer', new_room.ops)
+
   return res.status(200).send(new_room);
 };
 

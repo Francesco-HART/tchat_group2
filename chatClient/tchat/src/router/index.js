@@ -8,16 +8,19 @@ import store from '@/store'
 
 Vue.use(VueRouter)
 
+let isAuthenticated
+
 function isUserExist () {
   try {
-    return !!store.getters.user.data
+    isAuthenticated = !!store.getters.user
   } catch (e) {
-    return false
+    isAuthenticated = false
   }
+  console.log(isAuthenticated)
 }
 
 function guardMyrouteLoggin (to, from, next) {
-  const isAuthenticated = isUserExist()
+  isUserExist()
   if (isAuthenticated) {
     next('/tchat/général/5fad386d9b98bf151df5b666')
   } else {
@@ -26,7 +29,7 @@ function guardMyrouteLoggin (to, from, next) {
 }
 
 function guardMyroute (to, from, next) {
-  const isAuthenticated = isUserExist()
+  isUserExist()
   if (isAuthenticated) {
     next()
   } else {

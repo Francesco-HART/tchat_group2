@@ -25,9 +25,13 @@
       <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/components/Salon.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/components/Salon.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/views/Tchat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/views/Tchat.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/views/AddServer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/views/AddServer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatClient/tchat/src/views/Auth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chatClient/tchat/src/views/Auth.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatServeur/controllers/public_messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/controllers/public_messages.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatServeur/controllers/rooms.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/controllers/rooms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatServeur/db/PublicMessage.Class.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/PublicMessage.Class.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatServeur/db/Room.Class.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/db/Room.Class.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatServeur/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/chatServeur/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +49,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="deconnection" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1kBORfZ4DeZfVPdxsmyBVJucOoO" />
@@ -53,6 +62,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
@@ -65,6 +75,8 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="npm.lint">
     <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -100,11 +112,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.lint" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.serve" />
+        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -117,11 +130,13 @@
       <updated>1605170511316</updated>
       <workItem from="1605170513567" duration="8452000" />
       <workItem from="1605179296935" duration="4553000" />
+      <workItem from="1605238336065" duration="2991000" />
+      <workItem from="1605250194943" duration="12932000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -136,42 +151,50 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605257513196">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605257513196" />
     <state x="2613" y="289" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605203863572">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2613" y="289" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605203863572" />
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1605258400550">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605258400550" />
     <state x="2745" y="318" width="424" height="491" key="FileChooserDialogImpl" timestamp="1605211907179">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2745" y="318" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605211907179" />
-    <state width="1897" height="268" key="GridCell.Tab.0.bottom" timestamp="1605233836436">
+    <state width="1897" height="83" key="GridCell.Tab.0.bottom" timestamp="1605262952418">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1194" height="246" key="GridCell.Tab.0.bottom/0.23.1440.812@0.23.1440.812" timestamp="1605217255796" />
     <state width="1194" height="198" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1605194845262" />
     <state width="1194" height="198" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1605176613235" />
-    <state width="1897" height="268" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605233836436" />
-    <state width="1897" height="268" key="GridCell.Tab.0.center" timestamp="1605233836436">
+    <state width="1897" height="83" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605262952418" />
+    <state width="1897" height="83" key="GridCell.Tab.0.center" timestamp="1605262952418">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1194" height="246" key="GridCell.Tab.0.center/0.23.1440.812@0.23.1440.812" timestamp="1605217255791" />
     <state width="1194" height="198" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1605194845261" />
     <state width="1194" height="198" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1605176613235" />
-    <state width="1897" height="268" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605233836436" />
-    <state width="1897" height="268" key="GridCell.Tab.0.left" timestamp="1605233836436">
+    <state width="1897" height="83" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605262952418" />
+    <state width="1897" height="83" key="GridCell.Tab.0.left" timestamp="1605262952417">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1194" height="246" key="GridCell.Tab.0.left/0.23.1440.812@0.23.1440.812" timestamp="1605217255776" />
     <state width="1194" height="198" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1605194845261" />
     <state width="1194" height="198" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1605176613234" />
-    <state width="1897" height="268" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605233836436" />
-    <state width="1897" height="268" key="GridCell.Tab.0.right" timestamp="1605233836436">
+    <state width="1897" height="83" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605262952417" />
+    <state width="1897" height="83" key="GridCell.Tab.0.right" timestamp="1605262952418">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1194" height="246" key="GridCell.Tab.0.right/0.23.1440.812@0.23.1440.812" timestamp="1605217255795" />
     <state width="1194" height="198" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1605194845262" />
     <state width="1194" height="198" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1605176613235" />
-    <state width="1897" height="268" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605233836436" />
+    <state width="1897" height="83" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605262952418" />
     <state width="1194" height="246" key="GridCell.Tab.1.bottom" timestamp="1605217255800">
       <screen x="0" y="23" width="1440" height="812" />
     </state>
@@ -220,10 +243,18 @@
       <screen x="0" y="23" width="1440" height="812" />
     </state>
     <state width="1194" height="246" key="GridCell.Tab.3.right/0.23.1440.812@0.23.1440.812" timestamp="1605217255812" />
-    <state x="2540" y="158" width="916" height="728" key="find.popup" timestamp="1605233532347">
+    <state x="1958" y="61" width="1720" height="880" key="ShowDiffWithBranchDialog" timestamp="1605255985886">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1958" y="61" width="1720" height="880" key="ShowDiffWithBranchDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605255985886" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1605255411293">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605255411293" />
+    <state x="2540" y="158" width="916" height="728" key="find.popup" timestamp="1605255467271">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="438" y="171" width="687" height="548" key="find.popup/0.23.1440.814@0.23.1440.814" timestamp="1605177772035" />
-    <state x="2540" y="158" width="916" height="728" key="find.popup/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605233532347" />
+    <state x="2540" y="158" width="916" height="728" key="find.popup/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605255467271" />
   </component>
 </project>

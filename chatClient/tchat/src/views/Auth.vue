@@ -47,7 +47,7 @@ export default {
         .get(url + 'login?pseudo=' + this.login + '&password=' + this.password)
         .then(response => {
           this.$store.commit('setUser', response.data)
-          this.$router.push('/tchat/Général')
+          this.$router.push('/tchat/général/5fad386d9b98bf151df5b666')
         })
     }
   }

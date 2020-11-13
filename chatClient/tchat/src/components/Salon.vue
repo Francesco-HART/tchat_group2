@@ -16,13 +16,12 @@
               </div>
               <div
                 v-for="(message, index) in cMessagesIo"
-                v-bind:key="index"
+                v-bind:key="index + message.message"
               >
                 <p>{{ message.pseudo }} : {{ message.message }}</p>
               </div>
             </md-content>
           </md-card-content>
-
           <md-card-content>
             <md-field>
               <label>Message</label>
@@ -45,11 +44,10 @@ import { url } from '@/const'
 import io from 'socket.io-client'
 
 const socket = io('http://localhost:5000')
-const messageIo = []
+let messageIo = []
 
 socket.on('sendMessage', (data) => {
   messageIo.push(data[0])
-  console.log(messageIo)
 })
 
 export default {
@@ -74,11 +72,10 @@ export default {
   methods: {
     onMessage: async function () {
       await this.postMessagesRoom(
-        this.$store.state.user.data._id,
+        this.$store.state.user._id,
         this.$route.params.id,
         this.textarea
       )
-      // this.$store.commit('addMessage', newMessage)
       this.textarea = ''
     },
     getMessagesRoom: param => {
