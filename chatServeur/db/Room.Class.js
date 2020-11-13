@@ -31,8 +31,14 @@ class RoomClass {
   }
 
   async createRoom(params) {
-    const collection = this.getCollectionRooms();
-    await collection.insertOne(params);
+    const collection = await this.getCollectionRooms();
+    const isRoomExist = await collection.findOne({room_name:params.room_name})
+    if (isRoomExist){
+      return null
+    }
+    else {
+      await collection.insertOne(params);
+    }
   }
 
   async getRoom() {

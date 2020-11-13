@@ -31,7 +31,7 @@ exports.sendPublicMessage = async function (req, res, next) {
     message,
   };
 
-  const new_message = await db.publicMessage.insertNewPulicMessage(params);
+  const new_message = await db.publicMessage.insertNewPublicMessage(params);
 
   socket.to(room_id).emit(room_id, new_message);
 

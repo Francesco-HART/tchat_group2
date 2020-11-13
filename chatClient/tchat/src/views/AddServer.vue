@@ -7,12 +7,12 @@
           <md-card-content>
             <md-field>
               <label>Nom serveur</label>
-              <md-input v-model="server" v-on:keyup.enter="addServer($event)"></md-input>
+              <md-input v-model="server" v-on:keyup.enter="addServer"></md-input>
             </md-field>
           </md-card-content>
 
           <md-card-actions style="justify-content: center">
-            <md-button class="md-raised" v-on:click="onSend">Envoyer</md-button>
+            <md-button class="md-raised" v-on:click="addServer">Envoyer</md-button>
           </md-card-actions>
 
         </md-card>
@@ -27,17 +27,20 @@ import { url } from '@/const'
 
 export default {
   name: 'AddServer',
-  data: () => ({
-    server: ''
-  }),
+  data () {
+    return {
+      server: '',
+      item: ''
+    }
+  },
   methods: {
     onSend: function () {
       this.$store.commit('listServers', this.server)
     },
-    addServer (event) {
-      if (event.target.value !== '') {
-        const roomName = event.target.value
-        axios.get(url + 'add-room?creator_id' + this.$store.getters.user.data._id + '&room_name', roomName)
+    addServer () {
+      if (this.server !== '') {
+        const roomName = this.server
+        axios.get(url + 'add-room?creator_id=' + this.$store.getters.user.data._id + '&room_name=' + roomName)
           .then((response) => {
             this.$store.commit('addServer', response)
             this.$router.push('/tchat/' + roomName)

@@ -49,7 +49,7 @@ class PublicMessage {
   }
 
 
-  async insertNewPulicMessage(params) {
+  async insertNewPublicMessage(params) {
     const collection = await this.getCollectionPublicMessage();
     const messages = await collection.insertOne(params);
     return messages;
