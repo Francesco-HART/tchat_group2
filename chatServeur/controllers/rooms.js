@@ -2,7 +2,7 @@ const db = require("../db/mongo");
 const io = require("../services/socket");
 exports.createRoom = async function (req, res, next) {
   const { creator_id, room_name } = req.body;
-
+  console.log(req.body);
   if (
     creator_id == null ||
     creator_id == undefined ||
@@ -17,9 +17,9 @@ exports.createRoom = async function (req, res, next) {
     room_name: room_name,
     users: [creator_id],
   };
-  const new_room = await db.rooms.createRoom(params);
-  socket.broadcast.emit("broadcast", new_room);
-  return res.status(200).send(new_room);
+  await db.rooms.createRoom(params);
+  socket.broadcast.emit("broadcast", params);
+  return res.status(200).send(params);
 };
 
 exports.getRoom = async function (req, res, next) {
