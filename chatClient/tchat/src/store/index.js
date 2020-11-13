@@ -11,7 +11,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     user: null,
-    server: '',
+    server: null,
     servers: [],
     messagesRooms: ['test', 'Antony']
   },
@@ -24,6 +24,9 @@ export default new Vuex.Store({
   mutations: {
     setUser (state, user) {
       state.user = user
+    },
+    setServer (state, server) {
+      state.server = server
     },
     listServers (state, servers) {
       state.servers = servers

@@ -82,16 +82,14 @@ export default {
     },
     getServer: function () {
       axios.get(url + 'all-rooms').then(response => {
-        console.log(response.data)
         this.$store.commit('listServers', response.data)
       })
     }
   },
 
-  asyncComputed: {
+  computed: {
     cServers: {
       get () {
-        // console.log(this.$store.state.servers)
         return this.$store.state.servers
       }
     }

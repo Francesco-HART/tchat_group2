@@ -17,8 +17,7 @@ export default {
   },
   watch: {
     $route () {
-      this.socket.join(this.$route.params.name)
-      console.log(this.$route.params.name)
+      // this.socket.join(this.$route.params.name)
       this.room = this.$route.params.name
     }
   },

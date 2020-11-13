@@ -19,7 +19,7 @@ function isUserExist () {
 function guardMyrouteLoggin (to, from, next) {
   const isAuthenticated = isUserExist()
   if (isAuthenticated) {
-    next('/tchat/général')
+    next('/tchat/général/5fad386d9b98bf151df5b666')
   } else {
     next('/auth')
   }
@@ -47,7 +47,7 @@ const routes = [
     component: AddServer
   },
   {
-    path: '/tchat/:name',
+    path: '/tchat/:name/:id',
     name: 'Tchat',
     beforeEnter: guardMyroute,
     component: Tchat

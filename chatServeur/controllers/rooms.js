@@ -29,13 +29,12 @@ exports.getRoom = async function (req, res, next) {
 
 exports.getRoomWithMessages = async function (req, res, next) {
   const { room_id, last_room_name } = req.query;
-  console.log(room_id, "iciii");
   if (room_id === null || room_id === undefined) {
     return res.status(404).send({ error: "Aucun nom de room" });
   }
   try {
     let room = await db.rooms.getRoomById(room_id);
-
+    console.log(room);
     if (room === null || room === undefined) {
       return res.status(404).send({ error: "Aucun nom de room" });
     }
@@ -49,7 +48,13 @@ exports.getRoomWithMessages = async function (req, res, next) {
     });
 
     Promise.all(roomFinal).then(function (results) {
-      return res.status(200).json(results);
+      const resultFinal = {
+        room_id: room._id,
+        room_name: room.room_name,
+        room_converse: results
+      }
+      console.log(resultFinal);
+      return res.status(200).json(resultFinal);
     });
   } catch (e) {
     console.log(e);

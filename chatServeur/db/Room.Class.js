@@ -50,7 +50,7 @@ class RoomClass {
 
   async getRoomById(room_id) {
     const collection = await this.getCollectionRooms();
-    const room = await collection.findOne({ _id: room_id });
+    const room = await collection.findOne({ _id: ObjectId(room_id) });
     return room;
   }
 }
