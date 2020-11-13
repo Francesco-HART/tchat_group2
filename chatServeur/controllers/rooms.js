@@ -34,7 +34,6 @@ exports.getRoomWithMessages = async function (req, res, next) {
   }
   try {
     let room = await db.rooms.getRoomById(room_id);
-    console.log(room);
     if (room === null || room === undefined) {
       return res.status(404).send({ error: "Aucun nom de room" });
     }
@@ -51,9 +50,8 @@ exports.getRoomWithMessages = async function (req, res, next) {
       const resultFinal = {
         room_id: room._id,
         room_name: room.room_name,
-        room_converse: results
-      }
-      console.log(resultFinal);
+        room_converse: results,
+      };
       return res.status(200).json(resultFinal);
     });
   } catch (e) {

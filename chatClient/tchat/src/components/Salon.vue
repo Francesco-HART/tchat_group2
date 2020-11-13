@@ -8,7 +8,10 @@
           </md-card-header>
           <md-card-content>
             <md-content class="md-scrollbar">
-              <div v-for="(message, index) in room.room_converse" v-bind:key="index">
+              <div
+                v-for="(message, index) in room.room_converse"
+                v-bind:key="index"
+              >
                 <p>{{ message.pseudo }} : {{ message.message }}</p>
               </div>
             </md-content>
@@ -31,58 +34,58 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { url } from '@/const'
+import axios from "axios";
+import { url } from "@/const";
 
 export default {
-  name: 'Salon',
+  name: "Salon",
   props: {
     nameRoom: String
   },
   data: () => ({
-    textarea: '',
-    room: ''
+    textarea: "",
+    room: ""
   }),
-  async mounted () {
-    this.room = await this.getMessagesRoom(this.$route.params.id)
-    this.$store.commit('setServer', this.room)
+  async mounted() {
+    this.room = await this.getMessagesRoom(this.$route.params.id);
+    this.$store.commit("setServer", this.room);
   },
   watch: {
-    async $route () {
-      this.room = await this.getMessagesRoom(this.$route.params.id)
-      this.$store.commit('setServer', this.room)
+    async $route() {
+      this.room = await this.getMessagesRoom(this.$route.params.id);
+
+      this.socket.on(this.$route.params.id, data => {
+        console.log(data);
+        this.$store.commit("addMessage", data);
+      });
     }
   },
 
   methods: {
-    onMessage: async function () {
-      await this.postMessagesRoom(
+    onMessage: async function() {
+      const newMessage = await this.postMessagesRoom(
         this.$store.state.user.data._id,
         this.$route.params.id,
         this.textarea
-      )
-
-      this.textarea = ''
+      );
+      this.$store.commit("addMessage", newMessage);
+      this.textarea = "";
     },
     getMessagesRoom: param => {
-      return axios.get(url + 'rooms?room_id=' + param).then(response => {
-        console.log(response.data)
-        return response.data
-      })
+      return axios.get(url + "rooms?room_id=" + param).then(response => {
+        return response.data;
+      });
     },
-    postMessagesRoom: (userId, roomId, message) => {
-      axios
-        .post(url + 'message/public', {
-          sender_id: userId,
-          room_id: roomId,
-          message: message
-        })
-        .then(response => {
-          return response.config.data
-        })
+    postMessagesRoom: async (userId, roomId, message) => {
+      const newMessages = await axios.post(url + "message/public", {
+        sender_id: userId,
+        room_id: roomId,
+        message: message
+      });
+      return newMessages.data;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

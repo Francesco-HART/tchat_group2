@@ -25,6 +25,13 @@ export default new Vuex.Store({
     setUser (state, user) {
       state.user = user
     },
+    addMessageSent (state, newMessage) {
+      newMessage.pseudo = state.user.pseudo
+      state.server.room_converse = [...state.server.conversation, newMessage]
+    },
+    addMessage (state, newMessage) {
+      state.server.room_converse = [...state.server.conversation, newMessage]
+    },
     setServer (state, server) {
       state.server = server
     },

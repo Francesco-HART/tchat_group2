@@ -21,12 +21,14 @@ exports.sendPublicMessage = async function (req, res, next) {
     room_id == undefined ||
     message == null ||
     message == undefined
-  ) {
+  )
     return res.status(404).send({ error: "Champs manquant" });
-  }
 
+  const sender_user = await db.users.findUserById(sender_id);
+  console.log(sender_user);
   const params = {
     sender_id,
+    pseudo: sender_user.pseudo,
     room_id,
     message,
   };
