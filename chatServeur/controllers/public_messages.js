@@ -15,8 +15,6 @@ exports.getPublicMessage = async function (req, res, next) {
 };
 
 exports.sendPublicMessage = async function (req, res, next) {
-
-
   const { sender_id, room_id, message } = req.body;
   if (
     sender_id == null ||

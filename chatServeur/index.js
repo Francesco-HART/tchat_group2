@@ -11,10 +11,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-axios.defaults.withCredentials = true
-Vue.use(VueAxios, axios)
 //Cors
 app.use(
     cors({ origin: true, credentials: true, exposedHeaders: ["set-cookie"] })
